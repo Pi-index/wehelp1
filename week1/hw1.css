@@ -32,10 +32,7 @@ body {
    margin-bottom:20px;
    font-size:40px;
   }
-  .second.text { 
-   color: black; 
-   text-align:center;
-  }
+  
 
 .container {
     width: 1200px;
@@ -55,22 +52,20 @@ body {
     display: flex;
     align-items: center; /* 垂直置中 */
     background-color:lightblue;
+    font-size: 20px;
   }
   
   .small-box1 img,
   .small-box2 img,
   .small-box3 img{
-    float: left;
+    
     width: 80px;
     height: 100%;
+    margin-right:10px;
+
   }
   
-  .small-box1 .text,
-  .small-box2 .text,
-  .small-box3 .text   {
-    margin-left: 10px; /* 文字和圖片間距 */
-    font-size: 20px;
-  }
+
 
   .big-box {
     display: grid;
