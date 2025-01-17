@@ -33,14 +33,9 @@ def find_and_print(messages, current_station):
             continue
 
         # 計算當前站點和朋友所在站點之間的距離
-        if current_station in green_line_branch or friend_station in green_line_branch:
-            # 如果當前站點或朋友在支線，需要特別處理
-            if current_station == "Xiaobitan":
-                current_distance = abs(station_distances["Qizhang"] - station_distances[friend_station]) + 1
-            elif friend_station == "Xiaobitan":
-                current_distance = abs(station_distances[current_station] - station_distances["Qizhang"]) + 1
-            else:
-                current_distance = abs(station_distances[current_station] - station_distances[friend_station])
+        if current_station == "Xiaobitan" or friend_station == "Xiaobitan":
+            # 如果當前站或朋友在支線，需要特別處理
+            current_distance = abs(station_distances["Qizhang"] - station_distances.get(current_station, station_distances["Qizhang"])) + 1
         else:
             # 如果都在主線，直接計算距離
             current_distance = abs(station_distances[current_station] - station_distances[friend_station])
@@ -52,6 +47,7 @@ def find_and_print(messages, current_station):
 
     
     print(nearest_friend)
+
 
 
 messages = {

@@ -37,15 +37,11 @@ function findAndPrint(messages, currentStation) {
 
         // 計算當前站點和朋友所在站點之間的距離
         let currentDistance;
-        if (greenLineBranch.includes(currentStation) || greenLineBranch.includes(friendStation)) {
-            // 如果當前站點或朋友在支線，需要特別處理
-            if (currentStation === "Xiaobitan") {
-                currentDistance = Math.abs(stationDistances["Qizhang"] - stationDistances[friendStation]) + 1;
-            } else if (friendStation === "Xiaobitan") {
-                currentDistance = Math.abs(stationDistances[currentStation] - stationDistances["Qizhang"]) + 1;
-            } else {
-                currentDistance = Math.abs(stationDistances[currentStation] - stationDistances[friendStation]);
-            }
+        if (currentStation === "Xiaobitan" || friendStation === "Xiaobitan") {
+            // 如果當前站或朋友在支線，需要特別處理
+            currentDistance = Math.abs(
+                stationDistances["Qizhang"] - (stationDistances[currentStation] || stationDistances["Qizhang"])
+            ) + 1;
         } else {
             // 如果都在主線，直接計算距離
             currentDistance = Math.abs(stationDistances[currentStation] - stationDistances[friendStation]);
