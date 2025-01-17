@@ -32,18 +32,13 @@ function findAndPrint(messages, currentStation) {
             }
         }
 
-        // 如果找不到站點，跳過該朋友
-        if (!friendStation) continue;
-
-        // 如果找不到站點，跳過該朋友
-        if (!friendStation) continue;
 
         // 計算當前站點和朋友所在站點之間的距離
         let currentDistance;
         if (currentStation === "Xiaobitan" || friendStation === "Xiaobitan") {
             // 如果當前站或朋友在支線，需要特別處理
             currentDistance = Math.abs(
-                stationDistances["Qizhang"] - (stationDistances[currentStation] || stationDistances["Qizhang"])
+                stationDistances["Qizhang"] - (stationDistances[currentStation] )
             ) + 1;
         } else {
             // 如果都在主線，直接計算距離
