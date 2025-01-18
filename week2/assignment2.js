@@ -34,13 +34,28 @@ function findAndPrint(messages, currentStation) {
 
         // 計算當前站點和朋友所在站點之間的距離
         let currentDistance;
+
+        // 檢查當前站點或朋友的站點是否為 Xiaobitan
         if (currentStation === "Xiaobitan" || friendStation === "Xiaobitan") {
-            // 如果當前站或朋友在支線，需要特別處理
-            currentDistance = Math.abs(
-                stationDistances["Qizhang"] - (stationDistances[currentStation] )
-            ) + 1;
+            // 如果當前站點是 Xiaobitan，則將當前站點視為 Qizhang
+            let currentStationForDistance = currentStation;
+            if (currentStation === "Xiaobitan") {
+                currentStationForDistance = "Qizhang";
+            }
+
+            // 如果朋友的站點是 Xiaobitan，則將朋友的站點視為 Qizhang
+            let friendStationForDistance = friendStation;
+            if (friendStation === "Xiaobitan") {
+                friendStationForDistance = "Qizhang";
+            }
+
+            // 計算兩個站點之間的距離
+            currentDistance = Math.abs(stationDistances[currentStationForDistance] - stationDistances[friendStationForDistance]);
+
+            // 因為 Xiaobitan 是支線站點，距離 Qizhang 1 站，所以總距離需要加 1
+            currentDistance += 1;
         } else {
-            // 如果都在主線，直接計算距離
+            // 如果兩個站點都不是 Xiaobitan，則直接計算兩個站點之間的距離
             currentDistance = Math.abs(stationDistances[currentStation] - stationDistances[friendStation]);
         }
 
@@ -67,6 +82,7 @@ findAndPrint(messages, "Songshan"); // print Copper
 findAndPrint(messages, "Qizhang"); // print Leslie
 findAndPrint(messages, "Ximen"); // print Bob
 findAndPrint(messages, "Xindian City Hall"); // print Vivian
+findAndPrint(messages, "Xiaobitan"); // print Lesle
 
 console.log("================task2================");
 // your code here, maybe
