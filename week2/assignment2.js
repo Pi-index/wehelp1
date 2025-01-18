@@ -82,7 +82,7 @@ findAndPrint(messages, "Songshan"); // print Copper
 findAndPrint(messages, "Qizhang"); // print Leslie
 findAndPrint(messages, "Ximen"); // print Bob
 findAndPrint(messages, "Xindian City Hall"); // print Vivian
-findAndPrint(messages, "Xiaobitan"); // print Lesle
+
 
 console.log("================task2================");
 // your code here, maybe
