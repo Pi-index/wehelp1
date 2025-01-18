@@ -208,4 +208,4 @@ function getNumber(index) {
   getNumber(30); //print 70 
 
 console.log("=================END=================");
-console.log("=========python檔名為assignment2.py=========");
+console.log("========python檔名為assignment2.py========");
