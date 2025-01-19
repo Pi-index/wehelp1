@@ -9,11 +9,28 @@ def find_and_print(messages, current_station):
     ]
     green_line_branch = ["Qizhang", "Xiaobitan"]
 
-    # 定義站點之間的距離（站數）
-    station_distances = {}  # 初始化空字典
-    for idx, station in enumerate(green_line_main):  # 掃描全部主線站點
-        station_distances[station] = idx  # 將站點名稱與索引（距離）存入字典
-    station_distances["Xiaobitan"] = station_distances["Qizhang"] + 1  # 支線距離為 1 站
+    station_distances = {
+        "Songshan": 0,
+        "Nanjing Sanmin": 1,
+        "Taipei Arena": 2,
+        "Nanjing Fuxing": 3,
+        "Songjiang Nanjing": 4,
+        "Zhongshan": 5,
+        "Beimen": 6,
+        "Ximen": 7,
+        "Xiaonanmen": 8,
+        "Chiang Kai-Shek Memorial Hall": 9,
+        "Guting": 10,
+        "Taipower Building": 11,
+        "Gongguan": 12,
+        "Wanlong": 13,
+        "Jingmei": 14,
+        "Dapinglin": 15,
+        "Qizhang": 16,
+        "Xindian City Hall": 17,
+        "Xindian": 18,
+        "Xiaobitan": 17  # 距離 Qizhang1站
+    }
 
     # 初始化最小距離和最近的朋友
     min_distance = float('inf')
@@ -27,17 +44,26 @@ def find_and_print(messages, current_station):
             if station in message:
                 friend_station = station
                 break
-
-        # 如果找不到站點，跳過該朋友
-        if not friend_station:
+        # 如果找不到朋友的站點，跳過這個朋友
+        if friend_station is None:
             continue
- 
+
         # 計算當前站點和朋友所在站點之間的距離
         if current_station == "Xiaobitan" or friend_station == "Xiaobitan":
-            # 如果當前站或朋友在支線，需要特別處理
-            current_distance = abs(station_distances["Qizhang"] - station_distances.get(current_station, station_distances["Qizhang"])) + 1
+            # 如果current站點是 Xiaobitan         
+            current_station_for_distance = current_station
+            if current_station == "Xiaobitan":
+                current_station_for_distance = "Qizhang"
+
+            # 如果朋友的站點是 Xiaobitan
+            friend_station_for_distance = friend_station
+            if friend_station == "Xiaobitan":
+                friend_station_for_distance = "Qizhang"
+
+            # 計算兩個站點之間的距離，並加1
+            current_distance = abs(station_distances[current_station_for_distance] - station_distances[friend_station_for_distance]) + 1
         else:
-            # 如果都在主線，直接計算距離
+            # 如果兩個站點都不是 Xiaobitan，則直接計算
             current_distance = abs(station_distances[current_station] - station_distances[friend_station])
 
         # 如果距離小於最小距離，則更新最小距離和最近的朋友
@@ -61,6 +87,7 @@ find_and_print(messages, "Songshan")  # print Copper
 find_and_print(messages, "Qizhang")  # print Leslie
 find_and_print(messages, "Ximen")  # print Bob
 find_and_print(messages, "Xindian City Hall")  # print Vivian
+# find_and_print(messages, "Xiaobitan")  # print Leslie
 
 print("================task2================")
 def book(consultants, hour, duration, criteria):
