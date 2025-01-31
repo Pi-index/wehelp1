@@ -1,9 +1,0 @@
-body{
-    margin: 0;
-    background-color: lightblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* 設定高度為視窗高度 */
-    
-}
