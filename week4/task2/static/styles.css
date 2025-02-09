@@ -1,0 +1,44 @@
+
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 使內容垂直居中 */
+    margin: 0; /* 移除預設的邊距 */
+    flex-direction: column; /* 垂直排列 */
+}
+
+h1 {
+    color: #1c1e21; /* 深色標題文字 */
+    text-align: center;
+    margin-bottom: 20px; /* 與表單間隔 */
+    background-color: #333; /*深色背景*/
+    color: white; /*白色字*/
+    width: 100%;
+    padding: 10px 0;
+}
+
+   form {
+    background-color: #fff; /* 白色表單背景 */
+    padding: 40px; /* 內部間距 */
+    border-radius: 8px; /* 圓角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+    width: 300px; /* 固定寬度 */
+    text-align: center; /* 內容水平居中*/
+}
+
+form div {
+    margin-bottom: 15px; /* 輸入框之間的間距 */
+    text-align: left;  /*讓label靠左*/
+    display: flex;      /*使用flexbox*/
+    align-items: center; /*垂直居中*/
+}
+
+label {
+    display: inline-block;
+    width: 80px; /* 標籤寬度 */
+    margin-right: 10px;
+    text-align: right;
+    font-weight: bold; /*加粗*/
+} 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入系統</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <h1>歡迎光臨，請輸入帳號密碼</h1>
+    <form id="loginForm" action="/signin" method="post">
+        <div>
+            <label for="username">帳號:</label>
+            <input type="text" id="username" name="username">
+        </div>
+        <div>
+            <label for="password">密碼:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div>
+            <label for="agree_terms">同意條款:</label>
+            <input type="checkbox" id="agree_terms" name="agree_terms">
+        </div>
+        <button type="submit">登入</button>
+    </form>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+           event.preventDefault(); // 阻止表單的預設提交
+           
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var agree_terms = document.getElementById('agree_terms').checked;
+
+            // 檢查是否勾選同意條款
+            if (!agree_terms) {
+                alert("請勾選同意條款"); // 彈出提醒
+                return; // 停止提交
+            }
+
+            // 建立要發送的數據
+            var data = {
+                username: username,
+                password: password,
+                agree_terms: agree_terms
+            };
+
+            // 使用 fetch API 發送 POST 請求
+            fetch('/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // 重要: 設置 Content-Type
+                },
+                body: JSON.stringify(data) // 將數據轉換為 JSON 字符串
+            })
+            .then(response => {
+                if (response.redirected) { // 檢查是否發生重定向
+                    window.location.href = response.url; // 重定向到新的 URL
+                } else {
+                    // 如果沒有重定向，可以處理其他響應 (例如，顯示錯誤訊息)
+                    return response.text();
+                }
+            })
+            .then(data => {
+                if (data) {
+                    console.log(data); // 處理響應數據 (這裡只是打印到控制台)
+                }
+            })            
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
