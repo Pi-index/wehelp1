@@ -39,12 +39,12 @@ async def signin(request: Request,
 
     # 檢查是否勾選同意條款
     if not agree_terms:
-        error_message = ""Please check the checkbox first"
+        error_message = "Please check the checkbox first"
         return RedirectResponse(url=f"/error?message={error_message}", status_code=307)
 
     # 檢查帳號和密碼是否皆未輸入
     if not username and not password:
-        error_message = "Please enter username and password"  # 錯誤訊息 (英文)
+        error_message = "請輸入帳號和密碼"  
         return RedirectResponse(url=f"/error?message={error_message}", status_code=307)
 
     # 檢查使用者名稱或密碼是否為空
@@ -57,7 +57,7 @@ async def signin(request: Request,
         request.session["SIGNED_IN"] = True  # 設置登入狀態為 True
         return RedirectResponse(url="/member", status_code=307)  # 重定向到會員頁面
     else:
-        error_message = "帳號或密碼不正確"  
+        error_message = "帳號或密碼輸入錯誤"  
         return RedirectResponse(url=f"/error?message={error_message}", status_code=307)
 
 # 會員頁面 (GET) - 成功頁面
