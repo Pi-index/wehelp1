@@ -1,7 +1,7 @@
 #Task2#
-'''
-CREATE DATABASE website;
-USE website;
+`CREATE DATABASE website;`
+`USE website;`
+```SQL
 CREATE TABLE member (
 id BIGINT PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(255) NOT NULL,
@@ -10,10 +10,10 @@ password VARCHAR(255) NOT NULL,
 follower_count INT UNSIGNED NOT NULL DEFAULT 0,
 time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-'''
+```
 
 #Task3#
-'''
+```SQL
 INSERT INTO member (name,username,password) VALUES ('test','test','test');
 select * from member;
 INSERT INTO member (name, username, password, follower_count) VALUES
@@ -30,10 +30,10 @@ SELECT * FROM member WHERE name LIKE '%es%';
 SELECT * FROM member WHERE username='test' AND password='test';
 UPDATE member SET name='test2' WHERE username='test';
 SELECT * FROM member;
-'''
+```
 
 #Task4#
-'''
+```SQL
 SELECT COUNT(*) FROM member;
 SELECT SUM(follower_count) FROM member;
 SELECT AVG(follower_count) FROM member;
@@ -44,10 +44,10 @@ FROM (
     ORDER BY follower_count DESC
     LIMIT 2
 ) AS F2;
-'''
+```
 
 #Task5#
-'''
+```SQL
 USE website;
 
 CREATE TABLE message (
@@ -75,4 +75,4 @@ SELECT AVG(ms.like_count) FROM message ms  JOIN member mb ON ms.member_id= mb.id
 SELECT mb.username, AVG(ms.like_count) FROM message ms 
 JOIN member mb ON ms.member_id= mb.id 
 GROUP BY mb.username;
-'''
+```
