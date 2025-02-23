@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>會員頁面</title>
+     <style>
+      body { font-family: sans-serif; background-color:#f0f0f0; }
+      h1 {color:#333;}
+      p {font-size:1.2em; margin-bottom:20px}
+      a {background-color:#007bff; color:white; padding:10px 15px; text-decoration:none; border-radius:5px;}
+      a:hover {background-color:#0056b3;}
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        width: 80%;
+        margin: 50px auto;
+        text-align:center;
+      }
+
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>歡迎光臨,這是會員頁</h1>
+    <p>{{ username }}, 歡迎登入系統</p>
+    <a href="/signout">登出系統</a>
+  </div>
+</body>
+</html>
