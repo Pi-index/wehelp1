@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員頁面</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f0f0; }
+        h1 { color: #333; }
+        p { font-size: 1.2em; margin-bottom: 20px; }
+        a { background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; }
+        a:hover { background-color: #0056b3; }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .message-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .message-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .message-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .message-form button {
+            margin-top: 10px;
+             background-color: #4CAF50; /* Green */
+             border: none;
+              color: white;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+
+        }
+
+        .messages-container {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .message {
+            border: 1px solid #eee;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+            text-align: left;
+        }
+        .message-author {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-container input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .update-container {
+            margin-bottom: 20px;
+        }
+        .update-container input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .update-container button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .update-result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>歡迎光臨，這是會員頁</h1>
+        <p>{{ username }}，歡迎登入系統</p>
+
+        <div class="message-form">
+            <h2>快來留言吧</h2>
+            <form action="/createMessage" method="post">
+                <label for="content">內容</label>
+                <textarea id="content" name="content" rows="4" required></textarea>
+                <button type="submit">送出</button>
+            </form>
+        </div>
+
+        <div class="messages-container">
+            <h2>歷史留言</h2>
+            {% for message in messages %}
+                <div class="message">
+                    <span class="message-author">{{ message.1 }}:</span> <span class="message-content">{{ message.0 }}</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="search-container">
+            <h2>查詢會員姓名</h2>
+            <input type="text" id="search-username" placeholder="輸入會員帳號">
+            <button onclick="fetchMember()">查詢</button>
+            <div class="search-result" id="search-result"></div>
+        </div>
+
+        <div class="update-container">
+            <h2>更新我的姓名</h2>
+            <input type="text" id="new-name" placeholder="輸入新的姓名">
+            <button onclick="updateName()">更新</button>
+            <div class="update-result" id="update-result"></div>
+        </div>
+
+        <a href="/signout">登出系統</a>
+    </div>
+
+    <script>
+        // 使用 fetch 查詢會員資料
+        async function fetchMember() {
+            const username = document.getElementById("search-username").value;
+            const response = await fetch(`/api/member?username=${username}`);
+            const data = await response.json();
+            const resultDiv = document.getElementById("search-result");
+
+            if (data.data) {
+                resultDiv.textContent = `${data.data.name} (${data.data.username})`;
+            } else {
+                resultDiv.textContent = "沒有找到會員資料";
+            }
+        }
+
+        // 使用 fetch 更新會員姓名
+        async function updateName() {
+            const newName = document.getElementById("new-name").value;
+            const response = await fetch("/api/member", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name: newName }),
+            });
+            const data = await response.json();
+            const resultDiv = document.getElementById("update-result");
+
+            if (data.ok) {
+                resultDiv.textContent = "更新成功";
+                // 更新頁面上的歡迎訊息
+                document.querySelector("p").textContent = `${newName}，歡迎登入系統`;
+            } else {
+                resultDiv.textContent = "更新失敗";
+            }
+        }
+    </script>
+</body>
+</html>
